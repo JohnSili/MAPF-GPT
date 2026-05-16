@@ -297,19 +297,28 @@ while True:
         model.train()
         logger.info(f"step {iter_num}: train loss {losses['train']:.4f}, val loss {losses['val']:.4f}")
 
-        if losses["val"] < best_val_loss or always_save_checkpoint:
+        checkpoint = None
+        if iter_num > 0:
+            checkpoint = {
+                "model": raw_model.state_dict(),
+                "optimizer": optimizer.state_dict(),
+                "model_args": model_args,
+                "iter_num": iter_num,
+                "best_val_loss": best_val_loss,
+                "config": config,
+            }
+        
+        # Всегда сохраняем ckpt.pt (если always_save_checkpoint)
+        if always_save_checkpoint and checkpoint:
+            logger.info(f"saving checkpoint to {out_dir}/ckpt.pt")
+            torch.save(checkpoint, os.path.join(out_dir, "ckpt.pt"))
+        
+        # Сохраняем best.pt только при улучшении
+        if losses["val"] < best_val_loss and checkpoint:
             best_val_loss = losses["val"]
-            if iter_num > 0:
-                checkpoint = {
-                    "model": raw_model.state_dict(),
-                    "optimizer": optimizer.state_dict(),
-                    "model_args": model_args,
-                    "iter_num": iter_num,
-                    "best_val_loss": best_val_loss,
-                    "config": config,
-                }
-                logger.info(f"saving checkpoint to {out_dir}")
-                torch.save(checkpoint, os.path.join(out_dir, "ckpt.pt"))
+            checkpoint["best_val_loss"] = best_val_loss
+            logger.info(f"saving best model (val_loss: {losses['val']:.4f}) to {out_dir}/best.pt")
+            torch.save(checkpoint, os.path.join(out_dir, "best.pt"))
 
     # forward backward update, with optional gradient accumulation to simulate larger batch size
     # and using the GradScaler if data type is float16
