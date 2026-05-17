@@ -135,11 +135,11 @@ pip install torchao   # W4/W8 GPU kernels (необходим для AWQ-инф�
 
 ## Финальные эксперименты
 
-Полный научный отчёт (методология, все ID экспериментов, таблицы POGEMA и
-latency, выводы, публикация весов на GitHub): **[REPORT.md](REPORT.md)**.
+Полный отчёт (POGEMA + latency по всем чекпойнтам, разбивка по `num_agents`):
+**[REPORT.md](REPORT.md)**.
 
-Сводные CSV/MD после `compare_runs.py`:
-`extras/runs/reports/final_2026-05-17/`.
+Сводки: `extras/runs/reports/final_2026-05-17/` (`global_by_model.md`,
+`by_map_group_agents.md`, `latency_b2048.md`).
 
 Частичные прогоны (smoke / 2 группы POGEMA) удалены. Запускайте этапы из
 раздела «Типичный конвейер» с **полным** eval (без `--groups`) и полным
