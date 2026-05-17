@@ -1,0 +1,40 @@
+# Secrets
+extras/.key_comet
+.env
+*.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Experiment outputs (regenerate via extras/scripts/)
+extras/runs/**/*
+!extras/runs/**/.gitkeep
+
+# Legacy paths (removed; ignore if recreated locally)
+distill_runs/
+baseline_results/
+comparison_tables/
+
+# Large artifacts (download separately)
+dataset/train/
+dataset/validation/
+dataset/.cache/
+weights/
+weights/.cache/
+
+# IDE / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*~
+
+# Notebook scratch
+svg/kt2_notebook/
