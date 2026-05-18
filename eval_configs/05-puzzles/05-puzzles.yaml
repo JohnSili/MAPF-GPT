@@ -31,16 +31,30 @@ environment:
       ]
 
 algorithms:
+  # Original
   MAPF-GPT-2M:
     name: MAPF-GPT
-    parallel_backend: balanced_dask
-    num_process: 4
     path_to_weights: weights/model-2M.pt
-  MAPF-GPT-6M:
+  
+  # L4 trimmed
+  MAPF-GPT-2M-L4:
     name: MAPF-GPT
-    parallel_backend: balanced_dask
-    num_process: 4
-    path_to_weights: weights/model-6M.pt
+    path_to_weights: weights/model-2M-L4.pt
+  
+  # L4 fine-tuned
+  MAPF-GPT-2M-L4-ft:
+    name: MAPF-GPT
+    path_to_weights: weights/model-2M-L4-finetuned.pt
+  
+  # L3 trimmed
+  MAPF-GPT-2M-L3:
+    name: MAPF-GPT
+    path_to_weights: weights/model-2M-L3.pt
+
+  # L3 fine-tuned
+  MAPF-GPT-2M-L3-ft:
+    name: MAPF-GPT
+    path_to_weights: weights/model-2M-L3-finetuned.pt
 
 results_views:
   TabularView1:
